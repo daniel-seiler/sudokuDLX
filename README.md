@@ -23,13 +23,12 @@ Since we are going to use a backtracking algorithm, a lot of operations like rem
 ### Algorithm X
 This algorithm searches a solution for the given cover matrix, source: [Dancing Links](https://arxiv.org/abs/cs/0011047)  
 
-&emsp;If *A* is empty, the problem is solved; terminate successfully.  
-&emsp;Otherwise choose a column, *c* (deterministically).  
-&emsp;Choose a row, *r*, such that *A*[*r*, *c*] = 1 (nondeterministically).  
-&emsp;Include *r* in the partial solution.  
-&emsp;For each *j* such that *A*[*r*, *j*] = 1,  
-&emsp;&emsp;&emsp;delete column *j* from matrix *A*;  
-&emsp;&emsp;&emsp;for each *i* such that *A*[*i*, *j*] = 1,  
-&emsp;&emsp;&emsp;&emsp;&emsp;delete row *i* from matrix *A*.  
-&emsp;Repeat this algorithm recursively on the reduced matrix *A*.  
-
+> If *A* is empty, the problem is solved; terminate successfully.  
+> Otherwise choose a column, *c* (deterministically).  
+> Choose a row, *r*, such that *A*[*r*, *c*] = 1 (nondeterministically).  
+> Include *r* in the partial solution.  
+> For each *j* such that *A*[*r*, *j*] = 1,  
+> &emsp;&emsp;delete column *j* from matrix *A*;  
+> &emsp;&emsp;for each *i* such that *A*[*i*, *j*] = 1,  
+> &emsp;&emsp;&emsp;&emsp;delete row *i* from matrix *A*.  
+> Repeat this algorithm recursively on the reduced matrix *A*.  
