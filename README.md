@@ -15,7 +15,7 @@ To solve the double linked list, we have to select a set of rows that contain ex
 3. Only 1 instance of a number can be in a block
 4. There can be only one number in a cell
 
-The rows represent every possible position for every number. Every row has four 1s, representing a position for this number satisfying the four constraints. A default cover matrix is created in the [sudoku class](/src/Sudoku.java). All entries which already exist in the given sudoku are removed from the cover matrix. The only thing left to do is to search for a solution that satisfies all constraints.  
+The rows represent every possible position for every number. Every row has four 1s, representing a position for this number satisfying the four constraints. A default cover matrix is created in the [sudoku class](/src/main/java/Sudoku.java). All entries which already exist in the given sudoku are removed from the cover matrix. The only thing left to do is to search for a solution that satisfies all constraints.  
 
 ### Dancing Links
 Since we are going to use a backtracking algorithm, a lot of operations like removing rows and columns (and reversing) have to be performed. A better way of handling the sparse matrix is to convert it to a double linked list. This makes all operations a lot easier and faster.
