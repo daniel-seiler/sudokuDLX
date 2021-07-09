@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DancingLinks {
-    private final int SIZE;
     private ColumnNode header;
     public List<Node> answer;
     public List<Node> result;
@@ -14,12 +13,9 @@ public class DancingLinks {
      * Create a new list, the dancing links. It is a way of saving a sparse matrix with nodes representing everything
      * that is not 0. This class can solve a given boolean matrix with brute force and return its result.
      *
-     * @param matrix    given binary matrix
-     * @param SIZE      size n of a sudoku n*n; it is only needed for returning the result, otherwise this algorithm can
-     *                  be used for virtually every problem.
+     * @param matrix given binary matrix
      */
-    public DancingLinks(final boolean[][] matrix, final int SIZE) {
-        this.SIZE = SIZE;
+    public DancingLinks(final boolean[][] matrix) {
         this.header = toList(matrix);
         this.answer = new ArrayList<>();
         this.result = new ArrayList<>();
@@ -125,32 +121,5 @@ public class DancingLinks {
             }
         }
         return returnNode;
-    }
-    
-    /**
-     * Convert the nodes saved in the result list back to a matrix representing the solved sudoku.
-     *
-     * @return      sudoku from result list
-     */
-    public int[][] toMatrix() {
-        int[][] result = new int[SIZE][SIZE];
-        
-        for (Node cursor: this.result) {
-            Node rowColumnNode = cursor;
-            int min = rowColumnNode.column.getName();
-            
-            for (Node temp = cursor.right; temp != cursor; temp = temp.right) {
-                
-                if (temp.column.getName() < min) {
-                    min = temp.column.getName();
-                    rowColumnNode = temp;
-                }
-            }
-            
-            result[rowColumnNode.column.getName() / SIZE][rowColumnNode.column.getName() % SIZE]
-                    = (rowColumnNode.right.column.getName() % SIZE) + 1;
-        }
-        
-        return result;
     }
 }

@@ -1,9 +1,11 @@
 import dlx.DancingLinks;
+import dlx.Node;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Sudoku {
@@ -30,7 +32,7 @@ public class Sudoku {
         
         System.out.println("\nStarting to convert sudoku...");
         long startTime = System.nanoTime();
-        DancingLinks dlx = new DancingLinks(convertInCoverMatrix(grid), this.size);
+        DancingLinks dlx = new DancingLinks(convertInCoverMatrix(grid));
         long endTime = System.nanoTime();
         System.out.println("Finished converting after " + (endTime - startTime) / 1000000 + " milliseconds.\n");
         
@@ -42,7 +44,7 @@ public class Sudoku {
         
         System.out.println("Solved sudoku:");
         
-        printGrid(dlx.toMatrix());
+        printGrid(interpretDLX(dlx.result));
         
         System.out.println("\033[1;96m" + "=============================================\n" + "\033[0m");
     }
@@ -74,7 +76,7 @@ public class Sudoku {
     private void printGrid(int[][] grid) {
         final int SIZE = grid.length;
         StringBuilder output = new StringBuilder();
-
+        
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (grid[i][j] == 0) {
@@ -235,5 +237,33 @@ public class Sudoku {
         }
         
         return header;
+    }
+    
+    /**
+     * Convert the nodes saved in the result list back to a matrix representing the solved sudoku.
+     *
+     * @param result matrix representing a solution for the given problem, given by DancingLinks
+     * @return sudoku from result list
+     */
+    private int[][] interpretDLX(List<Node> result) {
+        int[][] resultInt = new int[this.size][this.size];
+        
+        for (Node cursor : result) {
+            Node rowColumnNode = cursor;
+            int min = rowColumnNode.column.getName();
+            
+            for (Node temp = cursor.right; temp != cursor; temp = temp.right) {
+                
+                if (temp.column.getName() < min) {
+                    min = temp.column.getName();
+                    rowColumnNode = temp;
+                }
+            }
+            
+            resultInt[rowColumnNode.column.getName() / this.size][rowColumnNode.column.getName() % this.size]
+                    = (rowColumnNode.right.column.getName() % this.size) + 1;
+        }
+        
+        return resultInt;
     }
 }
