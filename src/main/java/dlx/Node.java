@@ -1,11 +1,11 @@
 package dlx;
 
 public class Node {
-    Node top;
-    Node bottom;
-    Node left;
-    Node right;
-    ColumnNode column;
+    public Node top;
+    public Node bottom;
+    public Node left;
+    public Node right;
+    public ColumnNode column;
     
     /**
      * Create a new node that is double linked in each direction and to the column node. It represents a "1" in a sparse
